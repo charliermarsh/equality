@@ -23,6 +23,8 @@ At termination, we have two possible outcomes:
 
 To run, initiate the test suite with `python equality.py`. Both known-equal strings and known-unequal strings will be tested.
 
+Alternatively, to see the bitstrings in question, run with verbosity: `python equality.py -v`.
+
 # Appendix
 
 The proof of the procedure's O(1) information complexity can be found in the [linked paper](http://eccc.hpi-web.de/report/2011/123/) mentioned above.

@@ -2,9 +2,10 @@
     O(1) information test for equality of two bitstrings from Interactive Information Complexity [Braverman '11].
 """
 
-import numpy as np
 from random import randint
 import unittest
+import argparse
+import numpy as np
 
 
 def is_invertible_F2(a):
@@ -73,14 +74,16 @@ def random_bitstring(n):
 class TestEquality(unittest.TestCase):
 
     def test_equal(self):
-        for t in range(100):
+        for t in range(2):
             bitstring = random_bitstring(100)
             alice = Player(bitstring)
             bob = Player(bitstring)
             self.assertTrue(equality(alice, bob))
+            if self.verbose:
+                print "Equality for " + str(bitstring)
 
     def test_inequality(self):
-        for t in range(100):
+        for t in range(2):
             # Assign Alice's data
             bitstring = random_bitstring(100)
             alice = Player(bitstring)
@@ -94,5 +97,11 @@ class TestEquality(unittest.TestCase):
 
             self.assertTrue(not equality(alice, bob))
 
+            if self.verbose:
+                print "Inequality for " + str(alice.data) + " vs. " + str(bob.data)
+
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='O(1) IC equality algorithm.')
+    parser.add_argument('--verbose', '-v', action='store_true')
+    args = parser.parse_args(namespace=TestEquality)
     unittest.main()
