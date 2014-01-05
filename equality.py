@@ -9,8 +9,8 @@ import unittest
 
 def is_invertible_F2(a):
     """
-    Determine invertibility by Gaussian elimination.
-    Via http://stackoverflow.com/questions/16254654/test-if-matrix-is-invertible-over-finite-field.
+        Determine invertibility by Gaussian elimination.
+        Via http://stackoverflow.com/questions/16254654/test-if-matrix-is-invertible-over-finite-field.
     """
     a = np.array(a, dtype=np.bool_)
     n = a.shape[0]
@@ -32,6 +32,7 @@ def is_invertible_F2(a):
 
 
 def generate_A(n):
+    """Returns a non-singular n-by-n matrix on F_2."""
     while True:
         a = np.random.randint(0, high=2, size=(n, n))
         if is_invertible_F2(a):
@@ -53,8 +54,10 @@ class Player(object):
 
 
 def equality(alice, bob):
+    """Returns True if Alice and Bob have equal bitstrings."""
     A = generate_A(alice.n)
 
+    # Check equality of each row
     for row in A:
         if not alice.isEqual(row, bob.multiply(row)):
             return False
@@ -63,6 +66,7 @@ def equality(alice, bob):
 
 
 def random_bitstring(n):
+    """Generate a random bitstring on n bits."""
     return [randint(0, 1) for i in range(n)]
 
 
@@ -77,11 +81,11 @@ class TestEquality(unittest.TestCase):
 
     def test_inequality(self):
         for t in range(100):
-            # assign Alice's data
+            # Assign Alice's data
             bitstring = random_bitstring(100)
             alice = Player(bitstring)
 
-            # ensure Bob has different data
+            # Ensure Bob has different data
             bitstring = random_bitstring(100)
             while alice.data == bitstring:
                 bitstring = random_bitstring(100)
